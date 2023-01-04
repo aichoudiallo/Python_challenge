@@ -40,43 +40,37 @@ with open (filepath) as data:
             max_increase[0]=row[0]
             max_increase[1]=net_change
 
-            ElIf net_change < max_decrease[1]:
-        max_decrease[0]=row[0]
-        max_decrease[1]= net_change
+        if net_change < max_decrease[1]:
+            max_decrease[0]=row[0]
+            max_decrease[1]= net_change
 
 
 # calculate avg sum(change)/len(change)
-    for i in range(len(change)-1):
-      monthly_profit_change.append(total_profit[i+1]-total_profit[i])
+    #for i in range(len(change)-1):
+     # monthly_profit_change.append(total_profit[i+1]-total_profit[i])
 
 
-
-
-out=(f"{total_months}")
-
-print(out)
 
 print("Financial Analysis")
 print("----------------------------")
-print(f"Total Months: {len(total_months)}")
-print(f"Total: ${sum(total_profit)}")
-print(f"Average Change: {round(sum(monthly_profit_change)/len(monthly_profit_change),2)}")
-print(f"Greatest Increase in Profits: {total_months[max_increase_month]} (${(str(max_increase_value))})")
-print(f"Greatest Decrease in Profits: {total_months[max_decrease_month]} (${(str(max_decrease_value))})")
+print(f"Total Months: {total_months}")
+print(f"Total: ${total_net}")
+print(f"Average Change: {round(sum(change)/len(change),2)}")
+print(f"Greatest Increase in Profits: {max_increase[0]} (${max_increase[1]})")
+print(f"Greatest Decrease in Profits: {max_decrease[0]} (${max_decrease[1]})")
 
 with open(output_file, "w") as file:
-    file.write(out)
-
+    
     file.write("Financial Analysis")
     file.write("\n")
     file.write("----------------------------")
     file.write("\n")
-    file.write(f"Total Months: {len(total_months)}")
+    file.write(f"Total Months: {total_months}")
     file.write("\n")
-    file.write(f"Total: ${sum(total_profit)}")
+    file.write(f"Total: ${total_net}")
     file.write("\n")
-    file.write(f"Average Change: {round(sum(monthly_profit_change)/len(monthly_profit_change),2)}")
+    file.write(f"Average Change: {round(sum(change)/len(change),2)}")
     file.write("\n")
-    file.write(f"Greatest Increase in Profits: {total_months[max_increase_month]} (${(str(max_increase_value))})")
+    file.write(f"Greatest Increase in Profits: {max_increase[0]} (${max_increase[1]})")
     file.write("\n")
-    file.write(f"Greatest Decrease in Profits: {total_months[max_decrease_month]} (${(str(max_decrease_value))})")
+    file.write(f"Greatest Decrease in Profits: {max_decrease[0]} (${max_decrease[1]})")

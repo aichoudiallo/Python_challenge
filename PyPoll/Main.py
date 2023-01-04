@@ -64,6 +64,6 @@ ____________________________
 
     """
     print(winning_candidate)
-
+    file.write(winning_candidate)
 
 

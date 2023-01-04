@@ -1,21 +1,26 @@
+# Dependencies
 import csv
 import os
 
+# set path to import and export csvs
 filepath= os.path.join("Ressources","election_data.csv")
 output_file=os.path.join("Analysis","Analysis.txt")
 
+# variables
 candidates=[]
-all_candidates=[]
 candidate_votes={}
-percent_list=[]
 winning_count=0
 winner=""
-data={}
 total=0
 
+# read in csv
 with open(filepath) as file: 
     reader = csv.reader(file) 
+    
+    # store the header
     header=next(reader)
+
+    # for loop to gather data
     for row in reader: 
         total+=1 
         candidate_name=row[2]
@@ -24,11 +29,9 @@ with open(filepath) as file:
             candidate_votes[candidate_name]=0
         candidate_votes[candidate_name]+=1
 
-       
+# print and export the requested deliverable
 with open (output_file,"w") as file:
 
-
-    # print(candidates)
    
     output= f"""
 Election Results
@@ -42,11 +45,12 @@ ____________________________\n"""
 
 
 
-
+    # calculate candidate vote count and percentage
     for name in candidate_votes:
         votes=candidate_votes.get(name)
         percentage=votes/total*100
 
+        # determine the winner
         if votes> winning_count:
             winning_count=votes
             winner=name

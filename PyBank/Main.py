@@ -1,9 +1,12 @@
+# Dependencies
 import csv 
 import os
 
+# set path to import and export csvs
 filepath= os.path.join("Ressources","budget_data.csv")
 output_file=os.path.join("analysis","analysis.txt")
 
+# variables
 total_months= 0
 total_net= 0
 
@@ -12,22 +15,23 @@ change= []
 max_increase= ["", 0]
 max_decrease = ['',1000000000]
 
-total_profit=[]
-monthly_profit_change=[]
-max_increase_month=[]
-max_decrease_month=[]
-max_increase_value=[]
-max_decrease_value=[]
 
+# read in csv
 with open (filepath) as data:
     reader= csv.reader(data)
+
+    # store the header
+
     header= next(reader)
+
+    #Gather information from the first row
     first_row= next (reader)
     # total_months= total_months+1
     total_months+=1
     total_net= total_net+int(first_row[1])
     previous= int(first_row[1])
 
+    # for loop to gather data
     for row in reader:
         total_months+=1
         total_net= total_net+int(row[1])
@@ -36,21 +40,19 @@ with open (filepath) as data:
         change+=[net_change]
         month+=[row[0]]
 
+        # Determine the month and value of maximum profit
         if net_change > max_increase[1]:
             max_increase[0]=row[0]
             max_increase[1]=net_change
 
+        # Determine the month and value of maximum loss
         if net_change < max_decrease[1]:
             max_decrease[0]=row[0]
             max_decrease[1]= net_change
 
 
-# calculate avg sum(change)/len(change)
-    #for i in range(len(change)-1):
-     # monthly_profit_change.append(total_profit[i+1]-total_profit[i])
 
-
-
+# print and export the requested deliverable
 print("Financial Analysis")
 print("----------------------------")
 print(f"Total Months: {total_months}")
